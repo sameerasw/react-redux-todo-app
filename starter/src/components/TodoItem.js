@@ -1,6 +1,6 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import { toggleComplete } from '../redux/todoSlice';
+import { toggleComplete, deleteTodo } from '../redux/todoSlice';
 
 const TodoItem = ({ id, title, completed }) => {
 	const dispatch = useDispatch();
@@ -14,6 +14,12 @@ const TodoItem = ({ id, title, completed }) => {
 		);
 	}
 
+	const handleDeleteClick = () => {
+		dispatch(deleteTodo({
+			id: id,
+		}));
+	};
+
 	return (
 		<li className={`list-group-item ${completed && 'list-group-item-success'}`}>
 			<div className='d-flex justify-content-between'>
@@ -21,7 +27,7 @@ const TodoItem = ({ id, title, completed }) => {
 					<input type='checkbox' className='mr-3' checked={completed} onChange={handleCompleteClick}></input>
 					{title}
 				</span>
-				<button className='btn btn-danger'>Delete</button>
+				<button className='btn btn-danger' onClick={handleDeleteClick}>Delete</button>
 			</div>
 		</li>
 	);
